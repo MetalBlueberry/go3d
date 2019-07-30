@@ -1,4 +1,4 @@
-module github.com/ungerik/go3d
+module github.com/metalblueberry/go3d
 
 go 1.12
 

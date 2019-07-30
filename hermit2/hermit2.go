@@ -5,7 +5,7 @@ package hermit2
 import (
 	"fmt"
 
-	"github.com/ungerik/go3d/vec2"
+	"github.com/metalblueberry/go3d/vec2"
 )
 
 // PointTangent contains a point and a tangent at that point.

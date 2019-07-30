@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"math"
 
-	"github.com/ungerik/go3d/float64/generic"
-	"github.com/ungerik/go3d/float64/vec3"
+	"github.com/metalblueberry/go3d/float64/generic"
+	"github.com/metalblueberry/go3d/float64/vec3"
 )
 
 var (
