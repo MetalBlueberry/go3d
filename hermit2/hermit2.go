@@ -4,6 +4,7 @@ package hermit2
 
 import (
 	"fmt"
+
 	"github.com/ungerik/go3d/vec2"
 )
 
@@ -41,21 +42,21 @@ func (herm *T) String() string {
 
 // Point returns a point on a hermit spline at t (0,1).
 func (herm *T) Point(t float32) vec2.T {
-	return Point(&herm.A.Point, &herm.A.Tangent, &herm.B.Point, &herm.B.Tangent, t)
+	return Point(herm.A.Point, herm.A.Tangent, herm.B.Point, herm.B.Tangent, t)
 }
 
 // Tangent returns a tangent on a hermit spline at t (0,1).
 func (herm *T) Tangent(t float32) vec2.T {
-	return Tangent(&herm.A.Point, &herm.A.Tangent, &herm.B.Point, &herm.B.Tangent, t)
+	return Tangent(herm.A.Point, herm.A.Tangent, herm.B.Point, herm.B.Tangent, t)
 }
 
 // Length returns the length of a hermit spline from A.Point to t (0,1).
 func (herm *T) Length(t float32) float32 {
-	return Length(&herm.A.Point, &herm.A.Tangent, &herm.B.Point, &herm.B.Tangent, t)
+	return Length(herm.A.Point, herm.A.Tangent, herm.B.Point, herm.B.Tangent, t)
 }
 
 // Point returns a point on a hermit spline at t (0,1).
-func Point(pointA, tangentA, pointB, tangentB *vec2.T, t float32) vec2.T {
+func Point(pointA, tangentA, pointB, tangentB vec2.T, t float32) vec2.T {
 	t2 := t * t
 	t3 := t2 * t
 
@@ -64,21 +65,21 @@ func Point(pointA, tangentA, pointB, tangentB *vec2.T, t float32) vec2.T {
 
 	f = t3 - 2*t2 + t
 	tAf := tangentA.Scaled(f)
-	result.Add(&tAf)
+	result.Add(tAf)
 
 	f = t3 - t2
 	tBf := tangentB.Scaled(f)
-	result.Add(&tBf)
+	result.Add(tBf)
 
 	f = -2*t3 + 3*t2
 	pAf := pointB.Scaled(f)
-	result.Add(&pAf)
+	result.Add(pAf)
 
 	return result
 }
 
 // Tangent returns a tangent on a hermit spline at t (0,1).
-func Tangent(pointA, tangentA, pointB, tangentB *vec2.T, t float32) vec2.T {
+func Tangent(pointA, tangentA, pointB, tangentB vec2.T, t float32) vec2.T {
 	t2 := t * t
 	t3 := t2 * t
 
@@ -87,21 +88,21 @@ func Tangent(pointA, tangentA, pointB, tangentB *vec2.T, t float32) vec2.T {
 
 	f = t3 - 2*t2 + 1
 	tAf := tangentA.Scaled(f)
-	result.Add(&tAf)
+	result.Add(tAf)
 
 	f = t3 - t2
 	tBf := tangentB.Scaled(f)
-	result.Add(&tBf)
+	result.Add(tBf)
 
 	f = -2*t3 + 3*t2
 	pAf := pointB.Scaled(f)
-	result.Add(&pAf)
+	result.Add(pAf)
 
 	return result
 }
 
 // Length returns the length of a hermit spline from pointA to t (0,1).
-func Length(pointA, tangentA, pointB, tangentB *vec2.T, t float32) float32 {
+func Length(pointA, tangentA, pointB, tangentB vec2.T, t float32) float32 {
 	sqrT := t * t
 	t1 := sqrT * 0.5
 	t2 := sqrT * t * 1.0 / 3.0
@@ -112,15 +113,15 @@ func Length(pointA, tangentA, pointB, tangentB *vec2.T, t float32) float32 {
 
 	f = t3 - 2*t2 + t1
 	tAf := tangentA.Scaled(f)
-	result.Add(&tAf)
+	result.Add(tAf)
 
 	f = t3 - t2
 	tBf := tangentB.Scaled(f)
-	result.Add(&tBf)
+	result.Add(tBf)
 
 	f = -2*t3 + 3*t2
 	pBf := pointB.Scaled(f)
-	result.Add(&pBf)
+	result.Add(pBf)
 
 	return result.Length()
 }
